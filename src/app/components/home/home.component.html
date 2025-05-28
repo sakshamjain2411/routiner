@@ -1,0 +1,72 @@
+<div class="shell">
+    <section id="Home">
+        <div class="flex-column cover">
+            <div class="header">
+                <p class="color-dark flex align-items-center gap-2 h4 mb-1">
+                    Hi, {{user.name}} 
+                    <img class="h4" src="/assets/images/wave.png" alt="">
+                </p>
+                <p class="paragraph color-secondary mb-0">Let’s make habits together!</p>
+            </div>
+            <div class="main flex-column grow">
+                <div class="date-navigator flex gap-1 mb-3" #DateNavigator>
+                    <div class="date flex-column align-items-center justify-content-center" (click)="onDateClick(item)" [ngClass]="{'active': item.dateString === selectedDate.dateString}" *ngFor="let item of dates">
+                        <h4 class="color-dark medium">{{item.date}}</h4>
+                        <p class="subtext color-secondary">{{item.day}}</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="card card-primary flex gap-3 align-items-center mb-4">
+                        <div class="progress-circle" [style]="{'background': 'conic-gradient(#fff 0% ' + (dailyHabits | completedPercentage) + '%, #AFB4FF ' + (dailyHabits | completedPercentage) + '% 100%)'}">
+                            <div class="icon color-primary flex justify-content-center align-items-center">{{dailyHabits | completedPercentage}}%</div>
+                        </div>
+                        <div>
+                            <p class="paragraph color-primary mb-1">Your daily goals almost done! 🔥</p>
+                            <p class="subtext color-secondary">{{dailyHabits | completedCount}} of {{dailyHabits.length}} completed</p>
+                        </div>
+                    </div>
+    
+                    <div class="mb-4">
+                        <div class="paragraph color-dark mb-2">Daily Habits</div>
+                        <div class="card flex gap-3 align-items-center mb-2" *ngFor="let habit of dailyHabits">
+                            <div class="progress flex align-items-center justify-content-center">
+                                <div class="progress-circle" [style]="{'background': 'conic-gradient(#000DFF 0% ' + (habit.progress / habit.target * 100) + '%, #e0e0e0 ' + (habit.progress / habit.target * 100) + '% 100%)'}">
+                                    <div class="icon flex justify-content-center align-items-center">{{habit.icon}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="paragraph color-dark">{{habit.name}}</p>
+                                <p class="subtext color-secondary">{{habit.progress}}/{{habit.target}} {{habit.unit | uppercase}}</p>
+                            </div>
+                            <div class="action ms-auto" (click)="onActionClick(habit)">
+                                <i *ngIf="habit.progress < habit.target" class="fa-solid fa-plus"></i>
+                                <i *ngIf="habit.progress >= habit.target" class="fa-solid fa-check completed"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <div class="paragraph color-dark mb-2">Weekly Habits</div>
+                        <div class="card flex gap-3 align-items-center mb-2" *ngFor="let habit of weeklyHabits">
+                            <div class="progress flex align-items-center justify-content-center">
+                                <div class="progress-circle" [style]="{'background': 'conic-gradient(#000DFF 0% ' + (habit.progress / habit.target * 100) + '%, #e0e0e0 ' + (habit.progress / habit.target * 100) + '% 100%)'}">
+                                    <div class="icon flex justify-content-center align-items-center">{{habit.icon}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="paragraph color-dark">{{habit.name}}</p>
+                                <p class="subtext color-secondary">{{habit.progress}}/{{habit.target}} {{habit.unit | uppercase}}</p>
+                            </div>
+                            <div class="action ms-auto" (click)="onActionClick(habit)">
+                                <i *ngIf="habit.progress < habit.target" class="fa-solid fa-plus"></i>
+                                <i *ngIf="habit.progress >= habit.target" class="fa-solid fa-check completed"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-navbar></app-navbar>
+</div>

@@ -1,0 +1,24 @@
+<section id="Navbar">
+    <div class="items flex justify-content-center align-items-center">
+        <div class="item">
+            <i class="fa-solid fa-house"></i>
+        </div>
+        <div class="item">
+            <i class="fa-solid fa-chart-simple"></i>
+        </div>
+        <div class="item flex justify-content-center align-items-center" (click)="openCreateHabitPopup()">
+            <div class="hero">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+        </div>
+        <div class="item">
+            <i class="fa-solid fa-award"></i>
+        </div>
+        <div class="item">
+            <i class="fa-solid fa-user"></i>
+        </div>
+    </div>
+</section>
+<app-quick-create *ngIf="this.comms.showQuickCreatePopup"></app-quick-create>
+<app-custom-create *ngIf="this.comms.showCustomCreatePopup"></app-custom-create>
+<app-quick-action [habit]="this.comms.quickActionHabit" *ngIf="this.comms.showQuickActionPopup"></app-quick-action>

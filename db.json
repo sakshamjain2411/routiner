@@ -1,0 +1,82 @@
+{
+    "users": [
+        {
+            "id": "QeeAsw3Y2kaWgduTQeRLjyot4UU2",
+            "name": "Saksham",
+            "email": "saksham.jain1998@gmail.com",
+            "habits": [
+                {
+                    "id": "habit1",
+                    "name": "Drink Water",
+                    "frequency": "Daily",
+                    "target": 2000,
+                    "progress": 0,
+                    "units": "ml",
+                    "icon": "💧"
+                },
+                {
+                    "id": "habit2",
+                    "name": "Exercise",
+                    "frequency": "Weekly",
+                    "target": 3,
+                    "progress": 0,
+                    "units": "times",
+                    "icon": "🏋️"
+                },
+                {
+                    "id": "habit3",
+                    "name": "Reading",
+                    "frequency": "Daily",
+                    "target": 30,
+                    "progress": 0,
+                    "units": "minutes",
+                    "icon": "📚"
+                }
+            ]
+        }
+    ],
+    "tracks": [
+        {
+            "id": "track1",
+            "habitId": "habit1",
+            "date": "Tue May 28 2025",
+            "amount": 500
+        },
+        {
+            "id": "track1",
+            "habitId": "habit1",
+            "date": "Tue May 27 2025",
+            "amount": 500
+        },
+        {
+            "id": "track1",
+            "habitId": "habit1",
+            "date": "Tue May 27 2025",
+            "amount": 500
+        },
+        {
+            "id": "track1",
+            "habitId": "habit1",
+            "date": "Tue May 27 2025",
+            "amount": 500
+        },
+        {
+            "id": "track1",
+            "habitId": "habit1",
+            "date": "Tue May 27 2025",
+            "amount": 1000
+        },
+        {
+            "id": "track2",
+            "habitId": "habit2",
+            "date": "Tue May 27 2025",
+            "amount": 1
+        },
+        {
+            "id": "track3",
+            "habitId": "habit3",
+            "date": "Tue May 27 2025",
+            "amount": 30
+        }
+    ]
+}

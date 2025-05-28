@@ -1,0 +1,26 @@
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AppState } from '../interfaces/app.interfaces';
+
+export const selectAppState = createFeatureSelector<AppState>('app');
+
+// User
+export const selectUser = createSelector(
+  selectAppState,
+  (state: AppState) => state.user
+);
+
+// Habits
+export const selectDailyHabits = createSelector(
+  selectAppState,
+  (state: AppState) => state.habits.filter(habit => habit.frequency === 'Daily')
+);
+export const selectWeeklyHabits = createSelector(
+  selectAppState,
+  (state: AppState) => state.habits.filter(habit => habit.frequency === 'Weekly')
+);
+
+// Tracks
+export const selectAllTracks = createSelector(
+  selectAppState,
+  (state: AppState) => state.tracks
+);

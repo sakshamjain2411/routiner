@@ -1,0 +1,20 @@
+<div class="popup">
+    <div class="content slide-up" QuickAction>
+        <img class="top" src="/assets/images/top.png" alt="">
+        <div class="ps-2 pe-2">
+            <div class="heading bold color-secondary mb-2">Log Activity</div>
+            <div class="card flex gap-3 align-items-center mb-4">
+                <p class="paragraph color-dark">Create Custom Habit</p>
+                <div class="action ms-auto">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+            </div>
+        </div>
+        <div class="quick-actions ps-2 flex gap-3">
+            <div class="item bg-primary flex align-items-center gap-2" *ngFor="let item of quickActions" (click)="onQuickActionClick(item)">
+                <div class="action">{{habit.icon}}</div>
+                <h5 class="bold">{{ item }} {{unit}}</h5>
+            </div>
+        </div>
+     </div>
+</div>
