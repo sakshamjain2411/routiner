@@ -10,6 +10,7 @@ import { selectAppState } from '../../store/app.selectors';
 import { cloneDeep } from 'lodash';
 import { HammerModule } from '@angular/platform-browser';
 import { SwipeToActionComponent } from "../swipe-to-action/swipe-to-action.component";
+import { AppActions } from '../../store/app.actions';
 
 @Component({
   selector: 'app-home',
@@ -24,9 +25,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   tracks: any[] = [];
   dailyHabits:Habit[] = [];
   weeklyHabits:Habit[] = [];
-  selectedDate:DateNavigator = {} as DateNavigator;
+  selectedDate:string = new Date().toDateString();
   days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  dates: DateNavigator[] = [];
+  dates: string[] = [];
   constructor(private store:Store, public comms:CommsService) {}
 
   ngOnInit(): void {
@@ -41,19 +42,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     // Date Navigator Initialization
     const date = new Date();
-    this.selectedDate = {
-      date: date.getDate(),
-      day: this.days[date.getDay()],
-      dateString: date.toDateString()
-    }
-    this.comms.selectedDate = this.selectedDate;
+    this.store.dispatch(AppActions.setSelectedDate({ date: this.selectedDate }));
     for(let i=date.getDate() - 5; i <= date.getDate() + 5; i++) {
       const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
-      this.dates.push({
-        date: currentDate.getDate(),
-        day: this.days[currentDate.getDay()],
-        dateString: currentDate.toDateString()
-      });
+      this.dates.push(currentDate.toDateString());
+      if(currentDate.getDate() === date.getDate()) {
+        this.selectedDate = currentDate.toDateString();
+      }
     }
 
   }
@@ -63,7 +58,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   scrollToSelectedDate(): void {
-    const index = this.dates.findIndex(date => date.dateString === this.selectedDate.dateString);
+    const index = this.dates.findIndex(date => date === this.selectedDate);
     if (index !== -1) {
       const element = this.dateNavigator.nativeElement.children[index];
       if (element) {
@@ -72,23 +67,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onDateClick(date: DateNavigator): void {
+  onDateClick(date: string): void {
     this.selectedDate = date;
-    this.comms.selectedDate = this.selectedDate;
+    this.store.dispatch(AppActions.setSelectedDate({ date: this.selectedDate }));
     this.scrollToSelectedDate();
     this.mapDailyHabits();
     this.mapWeeklyHabits();
   }
 
-  onActionClick(habit:Habit) {
-    this.comms.quickActionHabit = habit;
-    this.comms.showQuickActionPopup = true;
-  }
-
   mapDailyHabits(): void {
     this.dailyHabits.forEach((habit: Habit) => {
       habit.progress = this.tracks.reduce((acc, track) => {
-        if (track.habitId === habit.id && track.date === this.selectedDate.dateString) {
+        if (track.habitId === habit.id && track.date === this.selectedDate) {
           return acc + track.amount;
         }
         return acc;
@@ -100,7 +90,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.weeklyHabits.forEach((habit: Habit) => {
       habit.progress = this.tracks.reduce((acc, track) => {
         const trackDate = new Date(track.date);
-        const selected = new Date(this.selectedDate.dateString);
+        const selected = new Date(this.selectedDate);
         const startOfWeek = new Date(selected);
         startOfWeek.setDate(selected.getDate() - selected.getDay());
         const endOfWeek = new Date(selected);

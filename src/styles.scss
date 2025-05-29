@@ -4,13 +4,14 @@
 
 $primary-gradient: linear-gradient(180deg, #6B73FF, #000DFF);
 $primary-background: #F6F9FF;
+$error-background: #FF4D4D;
+$action-background: #6B73FF;
 $primary-text-color: #FFFFFF;
 $dark-text-color: #040415;
 $secondary-text-color: #9B9BA1;
 $primary-border-color: #EAECF0;
 $active-border-color: #000DFF;
 $primary-button-color: #3843FF;
-$error-button-color: #FF4D4D;
 
 * {
     margin: 0;
@@ -83,6 +84,14 @@ h6, .h6 {
 }
 .bg-primary {
     background: $primary-background !important;
+}
+.bg-error {
+    background: $error-background !important;
+    color: $primary-text-color !important;
+}
+.bg-action {
+    background: $action-background !important;
+    color: $primary-text-color !important;
 }
 
 .mb-0 {
@@ -296,9 +305,20 @@ section {
     max-height: 100dvh;
     height: 100dvh;
 }
-.scrollable-y {
-    overflow-y: auto;
+::-webkit-scrollbar {
+    display: none;
+}
+.overflow-hidden {
+    overflow: hidden;
+}
+.overflow-x-hidden {
     overflow-x: hidden;
+}
+.overflow-y-hidden {
+    overflow-y: hidden;
+}
+.scrollable-y {
+    overflow-y: scroll;
     scroll-behavior: smooth;
     &::-webkit-scrollbar {
         display: none;
@@ -365,21 +385,26 @@ section {
     transition: transform 0.2s ease;
     .card {
         transition: transform 0.2s ease;
+        will-change: transform;
     }
-    .delete-action-button {
+    .swipe-actions {
         position: absolute;
         top: 0;
         right: 0;
-        width: 75px;
+        width: 150px;
         height: 100%;
-        background: $error-button-color;
-        color: $primary-text-color;
+        gap: 5px;
         border-radius: 1rem;
         justify-content: center;
         display: none;
         align-items: center;
         transition: transform 0.2s ease;
         cursor: pointer;
+        .card {
+            height: 100%;
+        }
+    }
+    .delete-action-button {
     }
 }
 .action {

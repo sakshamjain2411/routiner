@@ -5,6 +5,8 @@ export const AppActions = {
     loadAppData: createAction('[App] Load App Data'),
     loadAppDataSuccess: createAction('[App] Load App Data Success', props<{ user: User, habits: Habit[], tracks: Track[] }>()),
     loadAppDataFailure: createAction('[App] Load App Data Failure', props<{ error: any }>()),
+
+    setSelectedDate: createAction('[App] Set Selected Date', props<{ date: string }>()),
 }
 
 export const HabitActions = {
@@ -21,4 +23,8 @@ export const TrackActions = {
     addTrack: createAction('[Track] Add Track', props<{ track: Track }>()),
     addTrackSuccess: createAction('[Track] Add Track Success'),
     addTrackFailure: createAction('[Track] Add Track Failure', props<{ error: any }>()),
+
+    deleteTrack: createAction('[Track] Delete Track', props<{ trackId: string }>()),
+    deleteTrackSuccess: createAction('[Track] Delete Track Success'),
+    deleteTrackFailure: createAction('[Track] Delete Track Failure', props<{ error: any }>()),
 }

@@ -49,7 +49,11 @@ export class CustomCreateComponent {
     },
     {
       name: 'Medication',
-      icon: '💊'
+      icon: '💊 '
+    },
+    {
+      name: 'Sports',
+      icon: '🏸'
     }
   ];
   unitOptions = ["Time", "Minute", "Hour", "Page", "Liter", "Step", "Count","Mililiter"];

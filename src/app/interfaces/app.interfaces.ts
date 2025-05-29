@@ -24,6 +24,7 @@ export interface Track {
   habitId: string;
   date: string; // ISO date string
   amount: number; // e.g., number of times completed
+  createdAt: string; // Optional, timestamp of when the track was created
 }
 
 export interface DateNavigator {
@@ -43,6 +44,7 @@ export interface QuickAction {
 
 export interface AppState {
   user: User;
+  selectedDate: string; // Date string
   habits: Habit[]; // List of habits
   tracks: Track[]; // List of habit tracking records
 }

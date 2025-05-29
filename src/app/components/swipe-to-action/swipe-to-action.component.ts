@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { Habit } from '../../interfaces/app.interfaces';
 import { CommsService } from '../../services/comms.service';
 import { Store } from '@ngrx/store';
-import { HabitActions } from '../../store/app.actions';
+import { HabitActions, TrackActions } from '../../store/app.actions';
+import { selectAllTracks, selectSelectedDate } from '../../store/app.selectors';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-swipe-to-action',
@@ -25,6 +27,14 @@ export class SwipeToActionComponent {
   onActionClick(habit:Habit) {
     this.comms.quickActionHabit = habit;
     this.comms.showQuickActionPopup = true;
+  }
+
+  async onUndoClick(habit:Habit) {
+    const selectedDate = await firstValueFrom(this.store.select(selectSelectedDate));
+    const tracks = (await firstValueFrom(this.store.select(selectAllTracks))).filter(track => track.habitId === habit.id && track.date === selectedDate).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    if (tracks.length > 0) {
+      this.store.dispatch(TrackActions.deleteTrack({ trackId: tracks[0].id }));
+    }
   }
 
   onDeleteClick(habit:Habit) {

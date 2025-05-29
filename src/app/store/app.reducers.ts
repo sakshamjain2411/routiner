@@ -9,7 +9,11 @@ const _appReducer = createReducer(
         user: {...user},
         habits: [...habits],
         tracks: [...tracks],
-    }))
+    })),
+    on(AppActions.setSelectedDate, (state, { date }) => ({
+        ...state,
+        selectedDate: date,
+    })),
 );
 
 export function appReducer(state: any, action: any) {

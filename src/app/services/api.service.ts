@@ -46,4 +46,9 @@ export class ApiService {
     const habitDocRef = doc(this.firestore, `users/${this.auth.currentUser?.uid}/habits/${habitId}`);
     return from(deleteDoc(habitDocRef));
   }
+
+  deleteTrack(trackId: string): Observable<any> {
+    const trackDocRef = doc(this.firestore, `users/${this.auth.currentUser?.uid}/tracks/${trackId}`);
+    return from(deleteDoc(trackDocRef));
+  }
 }

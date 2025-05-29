@@ -5,6 +5,8 @@ import { QuickActionDirective } from '../../../directives/quick-action.directive
 import { CommsService } from '../../../services/comms.service';
 import { Store } from '@ngrx/store';
 import { TrackActions } from '../../../store/app.actions';
+import { selectSelectedDate } from '../../../store/app.selectors';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-quick-action',
@@ -45,11 +47,12 @@ export class QuickActionComponent implements OnInit {
     }
   }
 
-  onQuickActionClick(action: string) {
+  async onQuickActionClick(action: string) {
     const track:Track = {
       habitId: this.habit.id,
-      date: this.comms.selectedDate.dateString,
-      amount: parseInt(action)
+      date: await firstValueFrom(this.store.select(selectSelectedDate)),
+      amount: parseInt(action),
+      createdAt: new Date().toISOString(),
     } as Track;
     this.store.dispatch(TrackActions.addTrack({ track }));
     this.comms.showQuickActionPopup = false;

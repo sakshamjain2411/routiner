@@ -9,9 +9,9 @@
     <section id="Home">
         <div class="wrapper flex-column gap-3">
             <div class="date-navigator flex gap-1" #DateNavigator>
-                <div class="date flex-column align-items-center justify-content-center" (click)="onDateClick(item)" [ngClass]="{'active': item.dateString === selectedDate.dateString}" *ngFor="let item of dates">
-                    <h4 class="color-dark medium">{{item.date}}</h4>
-                    <p class="subtext color-secondary">{{item.day}}</p>
+                <div class="date flex-column align-items-center justify-content-center" (click)="onDateClick(item)" [ngClass]="{'active': item === selectedDate}" *ngFor="let item of dates">
+                    <h4 class="color-dark medium">{{item.substring(8,10)}}</h4>
+                    <p class="subtext color-secondary">{{item.substring(4,7)}}</p>
                 </div>
             </div>
             <div class="card card-primary flex gap-3 align-items-center">
@@ -23,7 +23,7 @@
                     <p class="subtext color-secondary">{{dailyHabits | completedCount}} of {{dailyHabits.length}} completed</p>
                 </div>
             </div>
-            <div class="habits scrollable-y">
+            <div class="habits overflow-x-hidden scrollable-y">
                 <div class="mb-4">
                     <div class="paragraph color-dark mb-2">Daily Habits</div>
                     <div class="flex-column gap-2">

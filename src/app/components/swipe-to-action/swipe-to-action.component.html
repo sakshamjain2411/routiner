@@ -14,5 +14,12 @@
             <i *ngIf="habit.progress >= habit.target" class="fa-solid fa-check completed"></i>
         </div>
     </div>
-    <button class="card delete-action-button" (click)="onDeleteClick(habit)" [style.transform]="'translateX(' + (displacement + 80) + 'px)'" [style.display]="displacement < -10 ? 'block' : 'none'">Delete</button>
+    <div class="swipe-actions flex" [style.transform]="'translateX(' + (displacement + 160) + 'px)'" [style.display]="displacement < -10 ? 'flex' : 'none'">
+        <button class="card bg-action" (click)="onUndoClick(habit)">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+        </button>
+        <button class="card bg-error" (click)="onDeleteClick(habit)">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+    </div>
 </div>

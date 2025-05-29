@@ -69,4 +69,18 @@ export class AppEffects {
         )
     );
 
+    deleteTrack$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TrackActions.deleteTrack),
+            switchMap(action => {
+                return this.api.deleteTrack(action.trackId).pipe(
+                    map(() => {
+                        return TrackActions.deleteTrackSuccess();
+                    }),
+                    catchError(error => of(TrackActions.deleteTrackFailure({ error })))
+                );
+            })
+        )
+    );
+
 }
