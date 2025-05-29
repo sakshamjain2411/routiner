@@ -11,6 +11,10 @@ export const HabitActions = {
     addHabit: createAction('[Habit] Add Habit', props<{ habit: any }>()),
     addHabitSuccess: createAction('[Habit] Add Habit Success'),
     addHabitFailure: createAction('[Habit] Add Habit Failure', props<{ error: any }>()),
+
+    deleteHabit: createAction('[Habit] Delete Habit', props<{ habitId: string }>()),
+    deleteHabitSuccess: createAction('[Habit] Delete Habit Success'),
+    deleteHabitFailure: createAction('[Habit] Delete Habit Failure', props<{ error: any }>()),
 }
 
 export const TrackActions = {

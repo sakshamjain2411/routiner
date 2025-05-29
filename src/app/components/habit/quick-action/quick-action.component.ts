@@ -31,13 +31,13 @@ export class QuickActionComponent implements OnInit {
         this.quickActions = ['1000', '2000', '3000', '4000', '5000'];
         break;
       case 'Hour':
+      case 'Time':
+      case 'Page':
+      case 'Count':
         this.quickActions = ['1', '2', '3', '4', '5'];
         break;
       case 'Minutes':
         this.quickActions = ['5', '10', '15', '20', '30'];
-        break;
-      case 'Times':
-        this.quickActions = ['1', '2', '3', '4', '5'];
         break;
       default:
         this.quickActions = ['250', '500', '750', '1000', '1250'];

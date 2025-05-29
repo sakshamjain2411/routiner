@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { CommsService } from '../services/comms.service';
 
 @Directive({
-  selector: '[QuickAction]'
+  selector: '[QuickCreate]'
 })
 export class QuickCreateDirective {
 

@@ -12,7 +12,7 @@ export class RedirectLoggedOutGuard implements CanActivate {
   canActivate() {
     return authState(this.auth).pipe(map(user => !!user)).pipe(map(isLoggedIn => {
       if (!isLoggedIn) {
-        this.router.navigate(['/login']); // redirect to login if not logged in
+        this.router.navigate(['/onboarding']); // redirect to login if not logged in
         return false;
       }
       return true;

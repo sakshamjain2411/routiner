@@ -1,5 +1,5 @@
-import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, importProvidersFrom, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withHashLocation } from '@angular/router';
 
 import { routes } from './app.routes';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -12,17 +12,25 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { appReducer } from './store/app.reducers';
 import { AppEffects } from './store/app.effect';
+import { provideServiceWorker } from '@angular/service-worker';
+import 'hammerjs';
+import { HammerModule } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withFetch()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStore({app:appReducer}),
     provideEffects([AppEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }), 
+    importProvidersFrom(HammerModule),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    }), 
 ]
 };

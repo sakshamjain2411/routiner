@@ -7,10 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "local": "ng serve --host 0.0.0.0",
+    "deploy": "sh deploy.sh",
     "test": "ng test"
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^19.2.13",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
@@ -19,6 +21,7 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "@angular/service-worker": "^19.2.0",
     "@fortawesome/angular-fontawesome": "^1.0.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@ngrx/effects": "^19.2.0",
@@ -35,6 +38,7 @@
     "@angular-devkit/build-angular": "^19.2.11",
     "@angular/cli": "^19.2.11",
     "@angular/compiler-cli": "^19.2.0",
+    "@types/hammerjs": "^2.0.46",
     "@types/jasmine": "~5.1.0",
     "@types/lodash": "^4.17.17",
     "jasmine-core": "~5.6.0",

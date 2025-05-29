@@ -5,7 +5,7 @@ import { Auth, user } from '@angular/fire/auth';
 import { CommsService } from './comms.service';
 import { Track, User } from '../interfaces/app.interfaces';
 import { firstValueFrom, from, Observable } from 'rxjs';
-import { addDoc, collection, collectionData, Firestore, query, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, query, where, deleteDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +40,10 @@ export class ApiService {
   postTrack(track: Track): Observable<any> {
     const trackCollection = collection(this.firestore, `users/${this.auth.currentUser?.uid}/tracks`);
     return from(addDoc(trackCollection, track));
+  }
+
+  deleteHabit(habitId: string): Observable<any> {
+    const habitDocRef = doc(this.firestore, `users/${this.auth.currentUser?.uid}/habits/${habitId}`);
+    return from(deleteDoc(habitDocRef));
   }
 }

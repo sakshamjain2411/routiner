@@ -34,9 +34,25 @@ export class CustomCreateComponent {
     {
       name: 'Walking',
       icon: '🚶'
+    },
+    {
+      name: 'Reading',
+      icon: '📚'
+    },
+    {
+      name: 'Cooking',
+      icon: '🍳'
+    },
+    {
+      name: 'Journaling',
+      icon: '📝'
+    },
+    {
+      name: 'Medication',
+      icon: '💊'
     }
   ];
-  unitOptions = ["Times", "Minutes", "Hours", "Kilograms", "Liters", "Steps"];
+  unitOptions = ["Time", "Minute", "Hour", "Page", "Liter", "Step", "Count","Mililiter"];
 
   selectedFrequency: string = 'Daily';
   selectedIcon: {name:string, icon:string} = {name: 'Walking', icon: '🚶'};

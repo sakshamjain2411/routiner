@@ -55,4 +55,18 @@ export class AppEffects {
         )
     );
 
+    deleteHabit$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(HabitActions.deleteHabit),
+            switchMap(action => {
+                return this.api.deleteHabit(action.habitId).pipe(
+                    map(() => {
+                        return HabitActions.deleteHabitSuccess();
+                    }),
+                    catchError(error => of(HabitActions.deleteHabitFailure({ error })))
+                );
+            })
+        )
+    );
+
 }

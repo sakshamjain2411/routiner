@@ -5,14 +5,15 @@ import { CommonModule } from '@angular/common';
 import { DateNavigator, Habit, User } from '../../interfaces/app.interfaces';
 import { CompletedCountPipe } from '../../pipes/completed-count.pipe';
 import { CompletedPercentagePipe } from '../../pipes/completed-percentage.pipe';
-import { firstValueFrom, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectAllTracks, selectAppState, selectDailyHabits, selectUser, selectWeeklyHabits } from '../../store/app.selectors';
+import { selectAppState } from '../../store/app.selectors';
 import { cloneDeep } from 'lodash';
+import { HammerModule } from '@angular/platform-browser';
+import { SwipeToActionComponent } from "../swipe-to-action/swipe-to-action.component";
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent, CommonModule, CompletedCountPipe, CompletedPercentagePipe],
+  imports: [NavbarComponent, CommonModule, CompletedCountPipe, CompletedPercentagePipe, HammerModule, SwipeToActionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -116,5 +117,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }, 0);
     });
   }
-
 }

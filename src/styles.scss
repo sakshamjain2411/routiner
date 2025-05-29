@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 
-$primary-gradient: linear-gradient(135deg, #6B73FF, #000DFF);
+$primary-gradient: linear-gradient(180deg, #6B73FF, #000DFF);
 $primary-background: #F6F9FF;
 $primary-text-color: #FFFFFF;
 $dark-text-color: #040415;
@@ -10,6 +10,7 @@ $secondary-text-color: #9B9BA1;
 $primary-border-color: #EAECF0;
 $active-border-color: #000DFF;
 $primary-button-color: #3843FF;
+$error-button-color: #FF4D4D;
 
 * {
     margin: 0;
@@ -295,20 +296,17 @@ section {
     max-height: 100dvh;
     height: 100dvh;
 }
-.main {
-    background: $primary-background;
-    padding: 1rem 0rem;
-    .container {
-        padding: 0rem 1.5rem;
+.scrollable-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+        display: none;
     }
 }
-.cover {
+.wrapper {
     height: 100%;
     width: 100%;
-}
-.header {
-    padding: 1.5rem;
-    border-bottom: 1px solid $primary-border-color;
 }
 
 .circle-bg {
@@ -363,6 +361,27 @@ section {
         margin-left: -5px;
     }
 }
+.swipe-to-action {
+    transition: transform 0.2s ease;
+    .card {
+        transition: transform 0.2s ease;
+    }
+    .delete-action-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 75px;
+        height: 100%;
+        background: $error-button-color;
+        color: $primary-text-color;
+        border-radius: 1rem;
+        justify-content: center;
+        display: none;
+        align-items: center;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+    }
+}
 .action {
     border: 1px solid $primary-border-color;
     border-radius: 1rem;
@@ -382,13 +401,14 @@ section {
 }
 .date-navigator {
     overflow-x: scroll;
+    min-height: 70px;
     &::-webkit-scrollbar {
         display: none;
     }
     .date {
-        height: 70px;
+        height: 100%;
         min-width: 50px;
-        border: 1px solid $primary-border-color; 
+        border: 2px solid $primary-border-color; 
         background: $primary-text-color;
         border-radius: 1rem;      
         cursor: pointer;
@@ -410,6 +430,7 @@ section {
         padding: 0.5rem;
         border-radius: 1rem;
         background: $primary-border-color;
+        text-wrap-mode: nowrap;
     }
 }
 .suggestions {
@@ -469,6 +490,21 @@ section {
         background: url('/assets/images/onboarding.png');
         background-repeat: no-repeat;
         background-position: top center;
+    }
+}
+#Header {
+    padding: 1.5rem;
+    border-bottom: 1px solid $primary-border-color;
+    max-height: 100px;
+}
+#Home {
+    background: $primary-background;
+    max-height: calc(100dvh - 100px);
+    .wrapper {
+        padding: 1rem 1.5rem 1.5rem;
+    }
+    .habits {
+        padding-bottom: 68px;
     }
 }
 app-navbar {

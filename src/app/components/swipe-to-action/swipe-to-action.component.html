@@ -1,0 +1,18 @@
+<div class="swipe-to-action">
+    <div class="card flex gap-3 align-items-center" SwipeToAction (displacement)="setDisplacement($event)">
+        <div class="progress flex align-items-center justify-content-center">
+            <div class="progress-circle" [style]="{'background': 'conic-gradient(#000DFF 0% ' + (habit.progress / habit.target * 100) + '%, #e0e0e0 ' + (habit.progress / habit.target * 100) + '% 100%)'}">
+                <div class="icon flex justify-content-center align-items-center">{{habit.icon}}</div>
+            </div>
+        </div>
+        <div>
+            <p class="paragraph color-dark">{{habit.name}}</p>
+            <p class="subtext color-secondary">{{habit.progress}}/{{habit.target}} {{habit.unit | uppercase}}</p>
+        </div>
+        <div class="action ms-auto" (click)="onActionClick(habit)">
+            <i *ngIf="habit.progress < habit.target" class="fa-solid fa-plus"></i>
+            <i *ngIf="habit.progress >= habit.target" class="fa-solid fa-check completed"></i>
+        </div>
+    </div>
+    <button class="card delete-action-button" (click)="onDeleteClick(habit)" [style.transform]="'translateX(' + (displacement + 80) + 'px)'" [style.display]="displacement < -10 ? 'block' : 'none'">Delete</button>
+</div>
