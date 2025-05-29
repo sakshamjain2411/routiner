@@ -4,6 +4,7 @@
 
 $primary-gradient: linear-gradient(180deg, #6B73FF, #000DFF);
 $primary-background: #F6F9FF;
+$seccondary-background: #F3F4F6;
 $error-background: #FF4D4D;
 $action-background: #6B73FF;
 $primary-text-color: #FFFFFF;
@@ -60,8 +61,14 @@ h6, .h6 {
 .bold {
     font-weight: 600;
 }
+.bolder {
+    font-weight: 700;
+}
 .text-center {
     text-align: center;
+}
+.text-right {
+    text-align: right;
 }
 .capitalize {
     text-transform: capitalize;
@@ -85,6 +92,10 @@ h6, .h6 {
 .bg-primary {
     background: $primary-background !important;
 }
+.bg-secondary {
+    background: $seccondary-background !important;
+    color: $primary-text-color !important;
+}
 .bg-error {
     background: $error-background !important;
     color: $primary-text-color !important;
@@ -93,7 +104,6 @@ h6, .h6 {
     background: $action-background !important;
     color: $primary-text-color !important;
 }
-
 .mb-0 {
   margin-bottom: 0;
 }
@@ -302,8 +312,8 @@ section {
 }
 
 .shell {
-    max-height: 100dvh;
-    height: 100dvh;
+    max-height: calc(100dvh - 100px);
+    height: calc(100dvh - 100px);
 }
 ::-webkit-scrollbar {
     display: none;
@@ -326,6 +336,9 @@ section {
 }
 .wrapper {
     height: 100%;
+    width: 100%;
+}
+.item {
     width: 100%;
 }
 
@@ -355,6 +368,9 @@ section {
             }
         }
     }
+    .radius-1 {
+        border-radius: 0.5rem;
+    }
     .progress-circle {
         width: 40px;
         height: 40px;
@@ -382,10 +398,11 @@ section {
     }
 }
 .swipe-to-action {
-    transition: transform 0.2s ease;
+    transition: transform 1s ease;
     .card {
-        transition: transform 0.2s ease;
+        transition: transform 1s ease;
         will-change: transform;
+        height: 100%;
     }
     .swipe-actions {
         position: absolute;
@@ -398,13 +415,9 @@ section {
         justify-content: center;
         display: none;
         align-items: center;
-        transition: transform 0.2s ease;
+        transition: transform 1s ease;
+        will-change: transform;
         cursor: pointer;
-        .card {
-            height: 100%;
-        }
-    }
-    .delete-action-button {
     }
 }
 .action {
@@ -486,8 +499,13 @@ section {
             background: #D5ECE0;
         }
     }
-
 };
+.header {
+    padding: 1.5rem;
+    border-bottom: 1px solid $primary-border-color;
+    max-height: 100px;
+    background: $primary-text-color;
+}
 
 #Starter {
     background: $primary-gradient;
@@ -517,26 +535,24 @@ section {
         background-position: top center;
     }
 }
-#Header {
-    padding: 1.5rem;
-    border-bottom: 1px solid $primary-border-color;
-    max-height: 100px;
-}
 #Home {
     background: $primary-background;
-    max-height: calc(100dvh - 100px);
+    .wrapper {
+        padding: 1rem 0rem 0rem;
+        max-height: calc(100% - 100px);
+    }
+}
+#Stats {
+    background: $primary-background;
+    height: 100dvh;
+    max-height: 100dvh;
     .wrapper {
         padding: 1rem 1.5rem 1.5rem;
     }
-    .habits {
-        padding-bottom: 68px;
-    }
 }
-app-navbar {
-    position: absolute;
-    bottom: 20px;
-    left: 5%;
-    width: 90%;
+#Navbar {
+    padding: 1rem 1.5rem 1rem;
+    background: $primary-background;
     .items {
         display: grid;
         padding: 0.5rem 1.5rem;
@@ -560,6 +576,9 @@ app-navbar {
                 border-radius: 2rem;
                 color: $primary-text-color;
                 font-size: 18px;
+            }
+            &.active {
+                color: $primary-button-color;
             }
         }
     }

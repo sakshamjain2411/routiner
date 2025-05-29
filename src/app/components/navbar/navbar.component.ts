@@ -5,11 +5,11 @@ import { QuickCreateComponent } from "../habit/quick-create/quick-create.compone
 import { CustomCreateComponent } from "../habit/custom-create/custom-create.component";
 import { QuickActionComponent } from "../habit/quick-action/quick-action.component";
 import { Auth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [QuickCreateComponent, CommonModule, QuickCreateComponent, CustomCreateComponent, QuickActionComponent],
+  imports: [QuickCreateComponent, CommonModule, QuickCreateComponent, CustomCreateComponent, QuickActionComponent, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

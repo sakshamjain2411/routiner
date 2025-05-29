@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { SwipeToActionDirective } from '../../directives/swipe-to-action.directive';
+import { SwipeToActionDirective } from '../../../directives/swipe-to-action.directive';
 import { CommonModule } from '@angular/common';
-import { Habit } from '../../interfaces/app.interfaces';
-import { CommsService } from '../../services/comms.service';
+import { Habit } from '../../../interfaces/app.interfaces';
+import { CommsService } from '../../../services/comms.service';
 import { Store } from '@ngrx/store';
-import { HabitActions, TrackActions } from '../../store/app.actions';
-import { selectAllTracks, selectSelectedDate } from '../../store/app.selectors';
+import { HabitActions, TrackActions } from '../../../store/app.actions';
+import { selectAllTracks, selectSelectedDate } from '../../../store/app.selectors';
 import { firstValueFrom } from 'rxjs';
 
 @Component({

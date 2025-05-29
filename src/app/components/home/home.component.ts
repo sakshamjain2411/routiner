@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { selectAppState } from '../../store/app.selectors';
 import { cloneDeep } from 'lodash';
 import { HammerModule } from '@angular/platform-browser';
-import { SwipeToActionComponent } from "../swipe-to-action/swipe-to-action.component";
+import { SwipeToActionComponent } from "../habit/swipe-to-action/swipe-to-action.component";
 import { AppActions } from '../../store/app.actions';
 
 @Component({

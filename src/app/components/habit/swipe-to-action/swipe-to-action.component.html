@@ -14,7 +14,7 @@
             <i *ngIf="habit.progress >= habit.target" class="fa-solid fa-check completed"></i>
         </div>
     </div>
-    <div class="swipe-actions flex" [style.transform]="'translateX(' + (displacement + 160) + 'px)'" [style.display]="displacement < -10 ? 'flex' : 'none'">
+    <div class="swipe-actions flex" [style.transform]="'translateX(' + (displacement + 160) + 'px)'" [style.display]="displacement < -20 ? 'flex' : 'none'">
         <button class="card bg-action" (click)="onUndoClick(habit)">
             <i class="fa-solid fa-arrow-rotate-left"></i>
         </button>

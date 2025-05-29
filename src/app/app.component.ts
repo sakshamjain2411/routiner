@@ -4,10 +4,11 @@ import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
 import { AppState } from './interfaces/app.interfaces';
 import { AppActions } from './store/app.actions';
+import { NavbarComponent } from "./components/navbar/navbar.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
