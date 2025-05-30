@@ -3,6 +3,12 @@ import { AppState } from '../interfaces/app.interfaces';
 
 export const selectAppState = createFeatureSelector<AppState>('app');
 
+// Initialized
+export const selectInitialized = createSelector(
+  selectAppState,
+  (state: AppState) => state.initialized
+);
+
 // Selected Date
 export const selectSelectedDate = createSelector(
   selectAppState,

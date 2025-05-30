@@ -1,0 +1,32 @@
+<div class="shell flex-column">
+    <section id="Stats">
+        <div class="header user-profile-header">
+            <h3 class="color-dark bolder mb-3">Your Profile</h3>
+            <div class="user flex align-items-center gap-2">
+                <img class="avatar" src="{{user?.photoURL}}"/>
+                <div>
+                    <p class="color-dark flex align-items-center gap-2 h4">{{user?.displayName}}</p>
+                    <p class="paragraph color-secondary mb-0">Let’s make habits together!</p>
+                </div>
+                <div class="action ms-auto" (click)="onLogoutClick()">
+                    <i class="fa-solid fa-right-from-bracket" style="rotate: 180deg;"></i>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="card align-items-center flex gap-3">
+                <div class="action radius-1 bg-secondary color-active">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <p class="paragraph color-dark">Enable Push Notification</p>
+                <div class="ms-auto">
+                    <label class="switch">
+                        <input type="checkbox" (change)="onTogglePushNotificationPrefrence($event)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-navbar></app-navbar>
+</div>

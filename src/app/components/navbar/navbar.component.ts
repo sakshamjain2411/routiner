@@ -14,13 +14,8 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  constructor(public comms: CommsService, private auth:Auth, private router:Router) {}
+  constructor(public comms: CommsService) {}
   openCreateHabitPopup() {
     this.comms.showQuickCreatePopup = true;
-  }
-  onLogoutClick() {
-    this.auth.signOut().then(() => {
-      this.router.navigate(['/onboarding']);
-    });
   }
 }

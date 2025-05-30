@@ -1,43 +1,47 @@
-<section id="Home">
-    <div class="header">
-        <p class="color-dark flex align-items-center gap-2 h4 mb-1">
-            Hi, {{user.name}} 
-            <img class="h4" src="/assets/images/wave.png" alt="">
-        </p>
-        <p class="paragraph color-secondary mb-0">Let’s make habits together!</p>
-    </div>
-    <div class="wrapper flex-column gap-3">
-        <div class="date-navigator flex gap-1" #DateNavigator>
-            <div class="date flex-column align-items-center justify-content-center" (click)="onDateClick(item)" [ngClass]="{'active': item === selectedDate}" *ngFor="let item of dates">
-                <h4 class="color-dark medium">{{item.substring(8,10)}}</h4>
-                <p class="subtext color-secondary">{{item.substring(0,3)}}</p>
-            </div>
+<div class="shell flex-column">
+    <section id="Home" class="flex-column grow">
+        <div class="header">
+            <p class="color-dark flex align-items-center gap-2 h4 mb-1">
+                Hi, {{user.name}} 
+                <img class="h4" src="/assets/images/wave.png" alt="">
+            </p>
+            <p class="paragraph color-secondary mb-0">Let’s make habits together!</p>
         </div>
-        <div class="summary ps-2 pe-2">
-            <div class="card card-primary flex gap-3 align-items-center">
-                <div class="progress-circle" [style]="{'background': 'conic-gradient(#fff 0% ' + (dailyHabits | completedPercentage) + '%, #AFB4FF ' + (dailyHabits | completedPercentage) + '% 100%)'}">
-                    <div class="icon color-primary flex justify-content-center align-items-center">{{dailyHabits | completedPercentage}}%</div>
+        <div class="wrapper grow flex-column gap-3">
+            <div class="date-navigator flex gap-1" #DateNavigator>
+                <div class="date flex-column align-items-center justify-content-center" (click)="onDateClick(item)" [ngClass]="{'active': item === selectedDate}" *ngFor="let item of dates">
+                    <h4 class="color-dark medium">{{item.substring(8,10)}}</h4>
+                    <p class="subtext color-secondary">{{item.substring(0,3)}}</p>
                 </div>
+            </div>
+            <div class="summary ps-2 pe-2">
+                <div class="card card-primary flex gap-3 align-items-center">
+                    <div class="progress-circle" [style]="{'background': 'conic-gradient(#fff 0% ' + (dailyHabits | completedPercentage) + '%, #AFB4FF ' + (dailyHabits | completedPercentage) + '% 100%)'}">
+                        <div class="icon color-primary flex justify-content-center align-items-center">{{dailyHabits | completedPercentage}}%</div>
+                    </div>
+                    <div>
+                        <p class="paragraph color-primary mb-1">Your daily goals almost done! 🔥</p>
+                        <p class="subtext color-secondary">{{dailyHabits | completedCount}} of {{dailyHabits.length}} completed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="habits grow ps-2 pe-2 overflow-x-hidden scrollable-y">
+                <div class="mb-4">
+                    <div class="paragraph color-dark mb-2">Daily Habits</div>
+                    <div class="flex-column gap-2">
+                        <app-swipe-to-action *ngFor="let habit of dailyHabits" [habit]="habit"></app-swipe-to-action>
+                    </div>
+                </div>
+                
                 <div>
-                    <p class="paragraph color-primary mb-1">Your daily goals almost done! 🔥</p>
-                    <p class="subtext color-secondary">{{dailyHabits | completedCount}} of {{dailyHabits.length}} completed</p>
+                    <div class="paragraph color-dark mb-2">Weekly Habits</div>
+                    <div class="flex-column gap-2">
+                        <app-swipe-to-action *ngFor="let habit of weeklyHabits" [habit]="habit"></app-swipe-to-action>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="habits ps-2 pe-2 overflow-x-hidden scrollable-y">
-            <div class="mb-4">
-                <div class="paragraph color-dark mb-2">Daily Habits</div>
-                <div class="flex-column gap-2">
-                    <app-swipe-to-action *ngFor="let habit of dailyHabits" [habit]="habit"></app-swipe-to-action>
-                </div>
-            </div>
-            
-            <div class="mb-2">
-                <div class="paragraph color-dark mb-2">Weekly Habits</div>
-                <div class="flex-column gap-2">
-                    <app-swipe-to-action *ngFor="let habit of weeklyHabits" [habit]="habit"></app-swipe-to-action>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+    <app-navbar></app-navbar>
+   <app-splash id="SplashScreen" [ngClass]="{'show': !(showSplashScreen$ | async)}"></app-splash>
+</div>

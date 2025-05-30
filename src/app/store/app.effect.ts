@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { combineLatest, firstValueFrom, forkJoin, from, of } from 'rxjs';
 import { catchError, distinctUntilChanged, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { AppActions, HabitActions, TrackActions } from './app.actions';
+import { AppActions, HabitActions, TrackActions, UserActions } from './app.actions';
 import { ApiService } from '../services/api.service';
 import { Store } from '@ngrx/store';
 import { AppState, Track, User } from '../interfaces/app.interfaces';
@@ -24,6 +24,20 @@ export class AppEffects {
                 }),
                 catchError(error => of(AppActions.loadAppDataFailure({ error })))
             ))
+        )
+    );
+
+    addUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.addUser),
+            switchMap(action => {
+                return this.api.postUser(action.user).pipe(
+                    map(() => {
+                        return UserActions.addUserSuccess();
+                    }),
+                    catchError(error => of(UserActions.addUserFailure({ error })))
+                );
+            })
         )
     );
 

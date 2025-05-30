@@ -6,15 +6,16 @@ import { DateNavigator, Habit, User } from '../../interfaces/app.interfaces';
 import { CompletedCountPipe } from '../../pipes/completed-count.pipe';
 import { CompletedPercentagePipe } from '../../pipes/completed-percentage.pipe';
 import { Store } from '@ngrx/store';
-import { selectAppState } from '../../store/app.selectors';
+import { selectAppState, selectInitialized } from '../../store/app.selectors';
 import { cloneDeep } from 'lodash';
 import { HammerModule } from '@angular/platform-browser';
 import { SwipeToActionComponent } from "../habit/swipe-to-action/swipe-to-action.component";
 import { AppActions } from '../../store/app.actions';
+import { SplashComponent } from '../splash/splash.component';
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent, CommonModule, CompletedCountPipe, CompletedPercentagePipe, HammerModule, SwipeToActionComponent],
+  imports: [NavbarComponent, CommonModule, CompletedCountPipe, CompletedPercentagePipe, HammerModule, SwipeToActionComponent, SplashComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   selectedDate:string = new Date().toDateString();
   days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   dates: string[] = [];
+  showSplashScreen$ = this.store.select(selectInitialized);
   constructor(private store:Store, public comms:CommsService) {}
 
   ngOnInit(): void {

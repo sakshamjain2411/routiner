@@ -9,6 +9,15 @@ export const AppActions = {
     setSelectedDate: createAction('[App] Set Selected Date', props<{ date: string }>()),
 }
 
+export const UserActions = {
+    addUser: createAction('[User] Add User', props<{ user: User }>()),
+    addUserSuccess: createAction('[User] Add User Success'),
+    addUserFailure: createAction('[User] Add User Failure', props<{ error: any }>()),
+
+    updateUserPushNotificationPrefrence: createAction('[User] Update Push Notification Prefrence', props<{ enablePushNotification: boolean}>()),
+    updateUserPushNotificationPrefrenceSuccess: createAction('[User] Update Push Notification Prefrence Success')
+}
+
 export const HabitActions = {
     addHabit: createAction('[Habit] Add Habit', props<{ habit: any }>()),
     addHabitSuccess: createAction('[Habit] Add Habit Success'),

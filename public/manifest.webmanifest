@@ -12,5 +12,46 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/screen-onboarding.png",
+      "sizes": "1290x2796",
+      "type": "image/png",
+      "label": "Habit Tracking Dashboard"
+    },
+    {
+      "src": "screenshots/screen-onboarding.png",
+      "sizes": "1290x2796",
+      "type": "image/png",
+      "label": "Habit Tracking Dashboard",
+      "form_factor": "wide"
+    }
+  ],
+  "id": "Routiner",
+  "description": "Transform your daily routine and achieve your goals with Routiner, the ultimate habit tracking app designed to help you build and maintain positive habits effortlessly.",
+  "orientation": "portrait",
+  "display_override": ["minimal-ui", "standalone"],
+  "version": "1.0.0",
+  "developer": {
+    "name": "Routiner Team",
+    "url": "https://routiner.app/about"
+  },
+  "dir": "ltr",
+  "lang": "en-US",
+  "categories": ["productivity", "lifestyle"],
+  "features": [
+    "habit tracking",
+    "goal setting",
+    "reminders",
+    "progress tracking",
+    "customizable routines"
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://routiner.innowebx.in"
+    }
+  ],
+  "prefer_related_applications": false
 }

@@ -1,8 +1,8 @@
 export interface User {
-  id: string;
+  userId: string;
   name: string;
   email: string;
-  habits: Habit[]; // Optional, can be an array of habits
+  photoUrl: string; // Optional, can be an array of habits
   // Add other user properties as needed
 }
 
@@ -43,6 +43,7 @@ export interface QuickAction {
 }
 
 export interface AppState {
+  initialized: boolean;
   user: User;
   selectedDate: string; // Date string
   habits: Habit[]; // List of habits
