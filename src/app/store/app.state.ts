@@ -6,4 +6,6 @@ export const initialState: AppState = {
     selectedDate: '',
     habits: [],
     tracks: [],
+    routines: [],
+    routineTracks: []
 }

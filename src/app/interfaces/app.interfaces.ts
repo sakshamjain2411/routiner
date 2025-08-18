@@ -24,7 +24,25 @@ export interface Track {
   habitId: string;
   date: string; // ISO date string
   amount: number; // e.g., number of times completed
-  createdAt: string; // Optional, timestamp of when the track was created
+  createdOn: string; // Optional, timestamp of when the track was created
+}
+
+export interface Routine {
+  id: string;
+  name: string;
+  description?: string;
+  icon: string
+  frequency: string;
+  updatedOn: string;
+  createdOn: string;
+  dueIn: number;
+}
+
+export interface RoutineTrack {
+  id: string;
+  routineId: string;
+  date: string;
+  createdOn: string;
 }
 
 export interface DateNavigator {
@@ -48,4 +66,6 @@ export interface AppState {
   selectedDate: string; // Date string
   habits: Habit[]; // List of habits
   tracks: Track[]; // List of habit tracking records
+  routines: Routine[];
+  routineTracks: RoutineTrack[]
 }

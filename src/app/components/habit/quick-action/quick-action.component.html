@@ -4,9 +4,9 @@
         <div class="ps-2 pe-2">
             <div class="heading bold color-secondary mb-2">Log Activity</div>
             <div class="card flex gap-3 align-items-center mb-4">
-                <p class="paragraph color-dark">Create Custom Habit</p>
-                <div class="action ms-auto">
-                    <i class="fa-solid fa-plus"></i>
+                <input type="text" class="grow h5 bold" placeholder="Enter Value" [(ngModel)]="customValue">
+                <div class="action bg-active" (click)="onQuickActionClick(customValue)">
+                    <i class="fa-solid fa-check"></i>
                 </div>
             </div>
         </div>

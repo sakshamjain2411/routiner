@@ -7,10 +7,11 @@ import { Store } from '@ngrx/store';
 import { TrackActions } from '../../../store/app.actions';
 import { selectSelectedDate } from '../../../store/app.selectors';
 import { firstValueFrom } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-quick-action',
-  imports: [CommonModule, QuickActionDirective],
+  imports: [CommonModule, QuickActionDirective, FormsModule],
   templateUrl: './quick-action.component.html'
 })
 export class QuickActionComponent implements OnInit {
@@ -18,18 +19,16 @@ export class QuickActionComponent implements OnInit {
   @Input() habit:Habit = {} as Habit;
   unit:string = "ml"
   quickActions: string[] = [];
+  customValue: string = '';
   constructor(private comms:CommsService, private store:Store) { }
 
   ngOnInit(): void {
-    this.unit = this.habit.unit || 'Ml'; // Default to 'Ml' if unit is not set
+    this.unit = this.habit.unit || 'Mililiter'; // Default to 'Mililiter' if unit is not set
     switch (this.habit.unit) {
-      case 'Ml':
+      case 'Mililiter':
         this.quickActions = ['250', '500', '750', '1000', '1250'];
         break;
-      case 'Kg':
-        this.quickActions = ['0.5', '1', '2', '3', '4'];
-        break;
-      case 'Steps':
+      case 'Step':
         this.quickActions = ['1000', '2000', '3000', '4000', '5000'];
         break;
       case 'Hour':
@@ -38,7 +37,7 @@ export class QuickActionComponent implements OnInit {
       case 'Count':
         this.quickActions = ['1', '2', '3', '4', '5'];
         break;
-      case 'Minutes':
+      case 'Minute':
         this.quickActions = ['5', '10', '15', '20', '30'];
         break;
       default:
@@ -52,7 +51,7 @@ export class QuickActionComponent implements OnInit {
       habitId: this.habit.id,
       date: await firstValueFrom(this.store.select(selectSelectedDate)),
       amount: parseInt(action),
-      createdAt: new Date().toISOString(),
+      createdOn: new Date().toISOString(),
     } as Track;
     this.store.dispatch(TrackActions.addTrack({ track }));
     this.comms.showQuickActionPopup = false;

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, viewChild } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { CommsService } from '../../services/comms.service';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { HammerModule } from '@angular/platform-browser';
 import { SwipeToActionComponent } from "../habit/swipe-to-action/swipe-to-action.component";
 import { AppActions } from '../../store/app.actions';
 import { SplashComponent } from '../splash/splash.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ import { SplashComponent } from '../splash/splash.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('DateNavigator') dateNavigator!: ElementRef;
   user:User = {} as User;
@@ -30,10 +31,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   dates: string[] = [];
   showSplashScreen$ = this.store.select(selectInitialized);
+  onDestroy$ = new Subject<void>();
   constructor(private store:Store, public comms:CommsService) {}
 
   ngOnInit(): void {
-    this.store.select(selectAppState).subscribe((state) => {
+    this.store.select(selectAppState).pipe(
+      takeUntil(this.onDestroy$)
+    ).subscribe((state) => {
       this.user = state.user;
       this.dailyHabits = cloneDeep(state.habits.filter(habit => habit.frequency === 'Daily'));
       this.weeklyHabits = cloneDeep(state.habits.filter(habit => habit.frequency === 'Weekly'));
@@ -45,7 +49,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     // Date Navigator Initialization
     const date = new Date();
     this.store.dispatch(AppActions.setSelectedDate({ date: this.selectedDate }));
-    for(let i=date.getDate() - 5; i <= date.getDate() + 5; i++) {
+    for(let i=date.getDate() - 10; i <= date.getDate() + 10; i++) {
       const currentDate = new Date(date.getFullYear(), date.getMonth(), i);
       this.dates.push(currentDate.toDateString());
       if(currentDate.getDate() === date.getDate()) {
@@ -108,5 +112,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         return acc;
       }, 0);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

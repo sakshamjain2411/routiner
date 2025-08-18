@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CustomCreateDirective } from '../../../directives/custom-create.directive';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { HabitActions } from '../../../store/app.actions';
+import { HabitActions, RoutineActions } from '../../../store/app.actions';
 import { CommsService } from '../../../services/comms.service';
+import { Habit, Routine } from '../../../interfaces/app.interfaces';
 
 @Component({
   selector: 'app-custom-create',
@@ -13,6 +14,7 @@ import { CommsService } from '../../../services/comms.service';
 })
 export class CustomCreateComponent {
   habitForm: FormGroup;
+  routineForm: FormGroup;
   frequencyOptions = ["Daily", "Weekly"];
   iconOptions = [
     {
@@ -56,11 +58,12 @@ export class CustomCreateComponent {
       icon: '🏸'
     }
   ];
-  unitOptions = ["Time", "Minute", "Hour", "Page", "Liter", "Step", "Count","Mililiter"];
+  unitOptions = ["Time", "Minute", "Hour", "Page", "Step", "Count", "Mililiter"];
 
   selectedFrequency: string = 'Daily';
   selectedIcon: {name:string, icon:string} = {name: 'Walking', icon: '🚶'};
   selectedUnit: string = 'Steps';
+  isHabit: boolean = true;
 
   constructor(private fb: FormBuilder, private store:Store, private comms:CommsService) { // Replace 'any' with your actual store type
     this.habitForm = this.fb.group({
@@ -70,6 +73,17 @@ export class CustomCreateComponent {
       icon: ['🚶', Validators.required],
       unit: ['Steps', Validators.required],
     });
+
+    this.routineForm = this.fb.group({
+      name: ['', Validators.required],
+      frequency: ['Daily', Validators.required],
+      icon: ['🚶', Validators.required],
+      dueOn: ['', Validators.required]
+    });
+
+    if(this.comms.customCreateType === 'Routine') {
+      this.isHabit = false;
+    }
   }
 
   onSelectFrequency(frequency: string) {
@@ -78,22 +92,35 @@ export class CustomCreateComponent {
   }
   onSelectIcon(icon: {name:string, icon:string}) {
     this.selectedIcon = icon;
-    this.habitForm.patchValue({ icon:icon.icon });
+    if(this.isHabit) this.habitForm.patchValue({ icon:icon.icon })
+      else this.routineForm.patchValue({ icon:icon.icon });
   }
   onSelectUnit(unit: string) {
     this.selectedUnit = unit;
     this.habitForm.patchValue({ unit });
   }
   onSubmit() {
-    this.store.dispatch(HabitActions.addHabit({
-      habit: {
-        name: this.habitForm.value.name,
-        frequency: this.habitForm.value.frequency,
-        target: this.habitForm.value.target,
-        icon: this.habitForm.value.icon,
-        unit: this.habitForm.value.unit
-      }
-    }));
+    if(this.isHabit) {
+      this.store.dispatch(HabitActions.addHabit({
+        habit: {
+          name: this.habitForm.value.name,
+          frequency: this.habitForm.value.frequency,
+          target: this.habitForm.value.target,
+          icon: this.habitForm.value.icon,
+          unit: this.habitForm.value.unit
+        } as Habit
+      }));
+    } else {
+      this.store.dispatch(RoutineActions.addRoutine({
+        routine: {
+          name: this.routineForm.value.name,
+          frequency: this.routineForm.value.frequency,
+          createdOn: new Date(this.routineForm.value.dueOn).toISOString(),
+          updatedOn: new Date(this.routineForm.value.dueOn).toISOString(),
+          icon: this.routineForm.value.icon,
+        } as Routine
+      }));
+    }
     this.comms.showCustomCreatePopup = false;
   }
 

@@ -36,3 +36,15 @@ export const selectAllTracks = createSelector(
   selectAppState,
   (state: AppState) => state.tracks
 );
+
+// Routines
+export const selectAllRoutines = createSelector(
+  selectAppState,
+  (state: AppState) => state.routines
+);
+
+// Routine Tracks
+export const selectAllRoutineTrackss = createSelector(
+  selectAppState,
+  (state: AppState) => state.routineTracks
+);

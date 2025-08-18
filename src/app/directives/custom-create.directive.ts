@@ -23,7 +23,7 @@ export class CustomCreateDirective {
 
   private handleSwipeGesture() {
     const swipeDistance = this.touchEndY - this.touchStartY;
-    if (swipeDistance > 50) { // Adjust the threshold as needed
+    if (swipeDistance > 100) { // Adjust the threshold as needed
       this.renderer.removeClass(this.el.nativeElement, 'slide-up');
       this.renderer.addClass(this.el.nativeElement, 'slide-down');
       setTimeout(() => {

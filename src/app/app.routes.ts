@@ -4,14 +4,30 @@ import { OnboardingComponent } from './components/onboarding/onboarding.componen
 import { HomeComponent } from './components/home/home.component';
 import { RedirectLoggedInGuard } from './gaurds/redirectLoggedIn.guard';
 import { RedirectLoggedOutGuard } from './gaurds/redirectLoggedOut.guard';
-import { StatsComponent } from './components/stats/stats.component';
-import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
     { path: 'splash', component: SplashComponent },
     { path: 'onboarding', component: OnboardingComponent, canActivate: [RedirectLoggedInGuard] },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, canActivate: [RedirectLoggedOutGuard] },
-    { path: 'stats', component: StatsComponent, canActivate: [RedirectLoggedOutGuard] },
-    { path: 'profile', component: ProfileComponent, canActivate: [RedirectLoggedOutGuard] }
+    {
+        path: 'stats',
+        loadComponent: () => import('./components/stats/stats.component').then(m => m.StatsComponent),
+        canActivate: [RedirectLoggedOutGuard]
+    },
+    {
+        path: 'profile',
+        loadComponent: () => import('./components/profile/profile.component').then(m => m.ProfileComponent),
+        canActivate: [RedirectLoggedOutGuard]
+    },
+    {
+        path: 'routines',
+        loadComponent: () => import('./components/routines/routines.component').then(m => m.RoutinesComponent),
+        canActivate: [RedirectLoggedOutGuard]
+    },
+    {
+        path: 'challenges',
+        loadComponent: () => import('./components/challenges/challenges.component').then(m => m.ChallengesComponent),
+        canActivate: [RedirectLoggedOutGuard]
+    },
 ];

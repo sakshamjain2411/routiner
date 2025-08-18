@@ -1,8 +1,8 @@
 <div class="popup">
     <div class="content main slide-up" CustomCreate>
         <img class="top" src="/assets/images/top.png" alt="">
-        <h3 class="text-center bold ps-2 pe-2 mb-4">Create Custom Habit</h3>
-        <form class="ps-2 pe-2" [formGroup]="habitForm" (submit)="onSubmit()">
+        <h3 class="text-center bold ps-2 pe-2 mb-4">Create {{isHabit ? 'Habit':'Routine'}}</h3>
+        <form class="ps-2 pe-2" [formGroup]="habitForm" (submit)="onSubmit()" *ngIf="isHabit">
             <div class="heading bold color-dark mb-2">Name</div>
             <div class="flex-column gap-2 mb-4">
                 <input class="card" id="name" formControlName="name" placeholder="Habit Name (e.g., Exercise, Reading)">
@@ -38,11 +38,12 @@
                         <p class="subtext color-secondary">Frequency</p>
                     </div>
                 </div>
+                <!-- <input *ngIf="type == 'Routine'" type="number" class="card" id="target" formControlName="frequency" placeholder="Frequency (e.g., 5 Days)"> -->
             </div>
 
             <div class="heading bold color-dark mb-2">Target & Units</div>
             <div class="flex gap-3 mb-4">
-                <input class="card" id="target" formControlName="target" placeholder="Target (e.g., 10,100)">
+                <input class="card" id="target" type="number" formControlName="target" placeholder="Target (e.g., 10,100)">
                 <div class="card grow flex gap-3 align-items-center">
                     <div class="bg-primary action">📏</div>
                     <div class="grow">
@@ -60,5 +61,37 @@
             </div>
             <button class="btn btn-primary" type="submit">Create Habit</button>
         </form>
-     </div>
+        <form class="ps-2 pe-2" [formGroup]="routineForm" (submit)="onSubmit()" *ngIf="!isHabit">
+            <div class="heading bold color-dark mb-2">Name</div>
+            <div class="flex-column gap-2 mb-4">
+                <input class="card" id="name" formControlName="name" placeholder="Routine Name (e.g., Exercise, Reading)">
+            </div>
+
+            <div class="heading bold color-dark mb-2">Icon & Frequency</div>
+            <div class="flex gap-3 mb-4">
+                <div class="card grow flex gap-3 align-items-center">
+                    <div class="bg-primary action">{{selectedIcon.icon}}</div>
+                    <div class="grow">
+                        <div class="paragraph color-dark dropdown">
+                            <div class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{selectedIcon.name}}
+                            </div>
+                            <div class="dropdown-menu flex-column gap-1">
+                                <div class="item paragraph color-dark" *ngFor="let item of iconOptions" (click)="onSelectIcon(item)">{{item.name}}</div>
+                            </div>
+                        </div>
+                        <p class="subtext color-secondary">Icon</p>
+                    </div>
+                </div>
+                <input type="number" class="card" id="target" formControlName="frequency" placeholder="Frequency (e.g., 5 Days)">
+            </div>
+
+            <div class="heading bold color-dark mb-2">Due Date</div>
+            <div class="flex gap-3 mb-4">
+                <input type="date" class="card" id="target" formControlName="dueOn" placeholder="Due Date">
+            </div>
+            
+            <button class="btn btn-primary" type="submit">Create Routine</button>
+        </form>
+    </div>
 </div>

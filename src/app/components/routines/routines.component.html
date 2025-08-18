@@ -1,0 +1,23 @@
+<div class="shell flex-column">
+    <section id="Routines">
+        <div class="header flex align-items-center">
+            <div>
+                <h3 class="color-dark bolder">Routines</h3>
+                <p class="paragraph color-secondary">Here’s a list of your routines</p>
+            </div>
+            <div class="action ms-auto">
+                <i class="fa-solid fa-plus" (click)="openCreateRoutinePopup()"></i>
+            </div>
+        </div>
+        <div class="wrapper grow flex-column gap-3">
+            <div class="habits grow overflow-x-hidden scrollable-y">
+                <div class="mb-4">
+                    <div class="flex-column gap-2">
+                        <app-swipe-to-action *ngFor="let routine of routines" [routine]="routine" type="Routine"></app-swipe-to-action>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <app-navbar></app-navbar>
+</div>

@@ -4,12 +4,14 @@ import { initialState } from "./app.state";
 
 const _appReducer = createReducer(
     initialState,
-    on(AppActions.loadAppDataSuccess, (state, { user, habits, tracks }) => ({
+    on(AppActions.loadAppDataSuccess, (state, { user, habits, tracks, routines, routineTracks }) => ({
         ...state,
         initialized: true,
         user: {...user},
         habits: [...habits],
         tracks: [...tracks],
+        routines: [...routines],
+        routineTracks: [...routineTracks]
     })),
     on(AppActions.setSelectedDate, (state, { date }) => ({
         ...state,

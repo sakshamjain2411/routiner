@@ -8,6 +8,7 @@ export class CommsService {
   private _showCustomCreatePopup = false;
   private _showQuickActionPopup = false;
   private _quickActionHabit: any = null;
+  private _customCreateType:string = 'Habit';
   isSwipeAction = new EventEmitter<boolean>();
   selector = {
     user: new EventEmitter<any>(),
@@ -26,6 +27,9 @@ export class CommsService {
   get quickActionHabit() {
     return this._quickActionHabit;
   }
+  get customCreateType() {
+    return this._customCreateType;
+  }
   set showQuickCreatePopup(value: boolean) {
     this._showQuickCreatePopup = value;
   }
@@ -37,6 +41,9 @@ export class CommsService {
   }
   set quickActionHabit(value: any) {
     this._quickActionHabit = value;
+  }
+  set customCreateType(value: string) {
+    this._customCreateType = value;
   }
   setSwipeAction(value: boolean) {
     this.isSwipeAction.emit(value);

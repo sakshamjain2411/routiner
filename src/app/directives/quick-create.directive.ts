@@ -28,6 +28,7 @@ export class QuickCreateDirective {
       this.renderer.addClass(this.el.nativeElement, 'slide-down');
       setTimeout(() => {
         this.comms.showQuickCreatePopup = false; // Swipe down to open popup
+        this.comms.customCreateType = 'Habit';
       }, 1000); // Adjust the delay as needed
       // this.comms.showCreateHabitPopup = false; // Swipe down to open popup
     }

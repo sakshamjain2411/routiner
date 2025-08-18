@@ -122,6 +122,10 @@ h6, .h6 {
     background: $action-background !important;
     color: $primary-text-color !important;
 }
+.bg-active {
+    background: $active-border-color !important;
+    color: $primary-text-color !important;
+}
 .mb-0 {
   margin-bottom: 0;
 }
@@ -454,10 +458,24 @@ section {
             background-color: white; /* Inner circle color */
         }
     }
+    input {
+        border: none;
+        height: 40px;
+        width: 80%;
+    }
     select {
         border: none;
         width: calc(100% + 5px);
         margin-left: -5px;
+    }
+    .due-date {
+        border: 1px solid $primary-border-color;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        background: $primary-text-color;
+        .subtext {
+            font-size: 7px;
+        }
     }
 }
 .swipe-to-action {
@@ -621,6 +639,13 @@ section {
     }
 }
 #Stats {
+    background: $primary-background;
+    max-height: calc(100dvh - 100px);
+    .wrapper {
+        padding: 1rem 1.5rem 1.5rem;
+    }
+}
+#Routines {
     background: $primary-background;
     max-height: calc(100dvh - 100px);
     .wrapper {
