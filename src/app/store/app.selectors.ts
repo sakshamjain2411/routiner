@@ -48,3 +48,13 @@ export const selectAllRoutineTrackss = createSelector(
   selectAppState,
   (state: AppState) => state.routineTracks
 );
+
+// Challenges
+export const selectAllChallenges = createSelector(
+  selectAppState,
+  (state: AppState) => state.challenges
+);
+export const selectChallengePoints = (startDate:string, endDate:string, habitId:string[]) => createSelector(
+  selectAppState,
+  (state: AppState) => state.tracks.filter(track => track.completed == true && new Date(track.date).getTime() >= new Date(startDate).getTime() && new Date(track.date).getTime() <= new Date(endDate).getTime() && habitId.includes(track.habitId)).length * 50
+);

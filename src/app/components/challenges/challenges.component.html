@@ -13,7 +13,18 @@
             <div class="habits grow overflow-x-hidden scrollable-y">
                 <div class="mb-4">
                     <div class="flex-column gap-2">
-                        <!-- <app-swipe-to-action *ngFor="let routine of routines" [routine]="routine" type="Routine"></app-swipe-to-action> -->
+                        <div class="pb-2 card flex-column gap-3" *ngFor="let challenge of challenges">
+                            <div class="flex gap-3 align-items-center">
+                                <div class="action radius-1 bg-secondary">
+                                    🏅
+                                </div>
+                                <div>
+                                    <p class="paragraph color-dark">{{challenge.name}}</p>
+                                    <p class="subtext color-secondary">{{challenge.daysLeft}} Days To Go</p>
+                                </div>
+                            </div>
+                            <app-progress-bar [challenge]="challenge"></app-progress-bar>
+                        </div>
                     </div>
                 </div>
             </div>

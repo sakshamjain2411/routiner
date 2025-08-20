@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { AppActions, HabitActions, UserActions } from "./app.actions";
+import { AppActions, ChallengeActions, HabitActions, UserActions } from "./app.actions";
 import { initialState } from "./app.state";
 
 const _appReducer = createReducer(
@@ -12,6 +12,10 @@ const _appReducer = createReducer(
         tracks: [...tracks],
         routines: [...routines],
         routineTracks: [...routineTracks]
+    })),
+    on(ChallengeActions.loadChallengesSuccess, (state, { challenges }) => ({
+        ...state,
+        challenges: [...challenges]
     })),
     on(AppActions.setSelectedDate, (state, { date }) => ({
         ...state,

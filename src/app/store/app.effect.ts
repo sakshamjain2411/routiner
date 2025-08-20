@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { combineLatest, firstValueFrom, forkJoin, from, of } from 'rxjs';
 import { catchError, distinctUntilChanged, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { AppActions, HabitActions, RoutineActions, RoutineTrackActions, TrackActions, UserActions } from './app.actions';
+import { AppActions, ChallengeActions, HabitActions, RoutineActions, RoutineTrackActions, TrackActions, UserActions } from './app.actions';
 import { ApiService } from '../services/api.service';
 import { Store } from '@ngrx/store';
 import { AppState, Track, User } from '../interfaces/app.interfaces';
@@ -26,6 +26,20 @@ export class AppEffects {
                 }),
                 catchError(error => of(AppActions.loadAppDataFailure({ error })))
             ))
+        )
+    );
+
+    loadChallenges$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ChallengeActions.loadChallenges),
+            switchMap(() => {
+                return this.api.getChallenges().pipe(
+                    map(challenges => {
+                        return ChallengeActions.loadChallengesSuccess({ challenges });
+                    }),
+                    catchError(error => of(ChallengeActions.loadChallengesFailure({ error })))
+                );
+            })
         )
     );
 

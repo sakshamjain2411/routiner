@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Track, User, Habit, Routine, RoutineTrack } from "../interfaces/app.interfaces";
+import { Track, User, Habit, Routine, RoutineTrack, Challenge } from "../interfaces/app.interfaces";
 
 export const AppActions = {
     loadAppData: createAction('[App] Load App Data'),
@@ -60,4 +60,22 @@ export const RoutineTrackActions = {
     deleteRoutineTrack: createAction('[RoutineTrack] Delete RoutineTrack', props<{ routineTrackId: string }>()),
     deleteRoutineTrackSuccess: createAction('[RoutineTrack] Delete RoutineTrack Success'),
     deleteRoutineTrackFailure: createAction('[RoutineTrack] Delete RoutineTrack Failure', props<{ error: any }>()),
+}
+
+export const ChallengeActions = {
+    loadChallenges: createAction('[Challenge] Load Challenges'),
+    loadChallengesSuccess: createAction('[Challenge] Load Challenges Success', props<{ challenges: Challenge[] }>()),
+    loadChallengesFailure: createAction('[Challenge] Load Challenges Failure', props<{ error: any }>()),
+
+    addChallenge: createAction('[Challenge] Add Challenge', props<{ challenge: Challenge }>()),
+    addChallengeSuccess: createAction('[Challenge] Add Challenge Success'),
+    addChallengeFailure: createAction('[Challenge] Add Challenge Failure', props<{ error: any }>()),
+
+    deleteChallenge: createAction('[Challenge] Delete Challenge', props<{ challengeId: string }>()),
+    deleteChallengeSuccess: createAction('[Challenge] Delete Challenge Success'),
+    deleteChallengeFailure: createAction('[Challenge] Delete Challenge Failure', props<{ error: any }>()),
+
+    updateChallenge: createAction('[Challenge] Update Challenge', props<{ id:string, updatedOn: string }>()),
+    updateChallengeSuccess: createAction('[Challenge] Update Challenge Success'),
+    updateChallengeFailure: createAction('[Challenge] Update Challenge Failure', props<{ error: any }>()),
 }

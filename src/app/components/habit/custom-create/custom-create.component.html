@@ -1,5 +1,5 @@
 <div class="popup">
-    <div class="content main slide-up" CustomCreate>
+    <div class="content main slide-up" CustomCreate tabindex="0">
         <img class="top" src="/assets/images/top.png" alt="">
         <h3 class="text-center bold ps-2 pe-2 mb-4">Create {{isHabit ? 'Habit':'Routine'}}</h3>
         <form class="ps-2 pe-2" [formGroup]="habitForm" (submit)="onSubmit()" *ngIf="isHabit">

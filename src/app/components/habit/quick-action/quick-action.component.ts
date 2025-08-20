@@ -52,7 +52,11 @@ export class QuickActionComponent implements OnInit {
       date: await firstValueFrom(this.store.select(selectSelectedDate)),
       amount: parseInt(action),
       createdOn: new Date().toISOString(),
+      completed: false
     } as Track;
+    if(this.habit.progress + track.amount >= this.habit.target) {
+      track.completed = true;
+    }
     this.store.dispatch(TrackActions.addTrack({ track }));
     this.comms.showQuickActionPopup = false;
   }

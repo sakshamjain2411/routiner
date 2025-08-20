@@ -1,0 +1,6 @@
+<div class="progress-container">
+  <div class="progress-bar" [style.width.%]="progress"></div>
+  <div class="milestone" *ngFor="let milestone of challenge.milestones | keyvalue; let i = index" [style.left.%]="milestone.key - 0.5">
+    <div class="value">{{milestone.value}}</div>
+  </div>
+</div>

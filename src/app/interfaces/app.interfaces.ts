@@ -25,6 +25,7 @@ export interface Track {
   date: string; // ISO date string
   amount: number; // e.g., number of times completed
   createdOn: string; // Optional, timestamp of when the track was created
+  completed: boolean;
 }
 
 export interface Routine {
@@ -60,6 +61,19 @@ export interface QuickAction {
   steps: string[];
 }
 
+export interface Challenge {
+  id: string;
+  name: string;
+  description?: string;
+  duration: number;
+  habits: string[]; // Array of habit IDs
+  points: number; // Points accumulated for the challenge
+  startDate: string; // ISO date string
+  endDate: string; // ISO date string
+  daysLeft: number; // Days left to complete the challenge
+  milestones: Map<number, number>;
+}
+
 export interface AppState {
   initialized: boolean;
   user: User;
@@ -67,5 +81,6 @@ export interface AppState {
   habits: Habit[]; // List of habits
   tracks: Track[]; // List of habit tracking records
   routines: Routine[];
-  routineTracks: RoutineTrack[]
+  routineTracks: RoutineTrack[];
+  challenges: Challenge[];
 }

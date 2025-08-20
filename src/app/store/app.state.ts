@@ -7,5 +7,6 @@ export const initialState: AppState = {
     habits: [],
     tracks: [],
     routines: [],
-    routineTracks: []
+    routineTracks: [],
+    challenges: []
 }

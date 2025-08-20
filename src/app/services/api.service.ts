@@ -35,6 +35,10 @@ export class ApiService {
     const habitCollection = collection(this.firestore, `users/${this.auth.currentUser?.uid}/routineTracks`);
     return collectionData(habitCollection, { idField: 'id' });
   }
+  getChallenges(): Observable<any> {
+    const challengeCollection = collection(this.firestore, `users/${this.auth.currentUser?.uid}/challenges`);
+    return collectionData(challengeCollection, { idField: 'id' });
+  }
 
   postUser(user: User): Observable<any> {
     const usersCollection = collection(this.firestore, 'users');

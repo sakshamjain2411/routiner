@@ -21,6 +21,17 @@ export class CustomCreateDirective {
     this.handleSwipeGesture();
   }
 
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.renderer.removeClass(this.el.nativeElement, 'slide-up');
+      this.renderer.addClass(this.el.nativeElement, 'slide-down');
+      setTimeout(() => {
+        this.comms.showCustomCreatePopup = false; // Swipe down to open popup
+      }, 1000);
+    }
+  }
+
   private handleSwipeGesture() {
     const swipeDistance = this.touchEndY - this.touchStartY;
     if (swipeDistance > 100) { // Adjust the threshold as needed
