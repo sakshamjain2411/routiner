@@ -2,9 +2,9 @@ import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { CommsService } from '../services/comms.service';
 
 @Directive({
-  selector: '[QuickCreate]'
+  selector: '[SwipeToClose]'
 })
-export class QuickCreateDirective {
+export class SwipeToCloseDirective {
 
   constructor(private comms:CommsService, private el: ElementRef, private renderer: Renderer2) {}
   private touchStartY: number = 0;
@@ -23,12 +23,13 @@ export class QuickCreateDirective {
 
   private handleSwipeGesture() {
     const swipeDistance = this.touchEndY - this.touchStartY;
-    if (swipeDistance > 50) { // Adjust the threshold as needed
+    if (swipeDistance > 100) { // Adjust the threshold as needed
       this.renderer.removeClass(this.el.nativeElement, 'slide-up');
       this.renderer.addClass(this.el.nativeElement, 'slide-down');
       setTimeout(() => {
+        this.comms.showQuickActionPopup = false; // Swipe down to open popup
         this.comms.showQuickCreatePopup = false; // Swipe down to open popup
-        this.comms.customCreateType = 'Habit';
+        this.comms.customCreateType = "Habit";
       }, 1000); // Adjust the delay as needed
       // this.comms.showCreateHabitPopup = false; // Swipe down to open popup
     }

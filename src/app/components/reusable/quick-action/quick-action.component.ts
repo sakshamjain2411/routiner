@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Habit, QuickAction, Track } from '../../../interfaces/app.interfaces';
-import { QuickActionDirective } from '../../../directives/quick-action.directive';
 import { CommsService } from '../../../services/comms.service';
 import { Store } from '@ngrx/store';
 import { TrackActions } from '../../../store/app.actions';
 import { selectSelectedDate } from '../../../store/app.selectors';
 import { firstValueFrom } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { SwipeToCloseDirective } from '../../../directives/swipe-to-close';
 
 @Component({
   selector: 'app-quick-action',
-  imports: [CommonModule, QuickActionDirective, FormsModule],
+  imports: [CommonModule, SwipeToCloseDirective, FormsModule],
   templateUrl: './quick-action.component.html'
 })
 export class QuickActionComponent implements OnInit {

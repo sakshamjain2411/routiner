@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { QuickCreateDirective } from '../../../directives/quick-create.directive';
 import { CommsService } from '../../../services/comms.service';
+import { SwipeToCloseDirective } from '../../../directives/swipe-to-close';
 
 @Component({
   selector: 'app-quick-create',
-  imports: [QuickCreateDirective],
+  imports: [SwipeToCloseDirective],
   templateUrl: './quick-create.component.html'
 })
 export class QuickCreateComponent {

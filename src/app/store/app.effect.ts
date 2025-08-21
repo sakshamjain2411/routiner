@@ -113,6 +113,20 @@ export class AppEffects {
         )
     );
 
+    addChallenge$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ChallengeActions.addChallenge),
+            switchMap(action => {
+                return this.api.postChallenge(action.challenge).pipe(
+                    map(() => {
+                        return ChallengeActions.addChallengeSuccess();
+                    }),
+                    catchError(error => of(ChallengeActions.addChallengeFailure({ error })))
+                );
+            })
+        )
+    );
+
     updateRoutine$ = createEffect(() =>
         this.actions$.pipe(
             ofType(RoutineActions.updateRoutine),

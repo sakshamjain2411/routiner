@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CustomCreateDirective } from '../../../directives/custom-create.directive';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { HabitActions, RoutineActions } from '../../../store/app.actions';
+import { ChallengeActions, HabitActions, RoutineActions } from '../../../store/app.actions';
 import { CommsService } from '../../../services/comms.service';
-import { Habit, Routine } from '../../../interfaces/app.interfaces';
+import { Challenge, Habit, Routine } from '../../../interfaces/app.interfaces';
+import { selectDailyHabits } from '../../../store/app.selectors';
 
 @Component({
   selector: 'app-custom-create',
@@ -15,6 +16,7 @@ import { Habit, Routine } from '../../../interfaces/app.interfaces';
 export class CustomCreateComponent {
   habitForm: FormGroup;
   routineForm: FormGroup;
+  challengeForm: FormGroup;
   frequencyOptions = ["Daily", "Weekly"];
   iconOptions = [
     {
@@ -60,10 +62,13 @@ export class CustomCreateComponent {
   ];
   unitOptions = ["Time", "Minute", "Hour", "Page", "Step", "Count", "Mililiter"];
 
+  habits: Habit[] = [];
   selectedFrequency: string = 'Daily';
   selectedIcon: {name:string, icon:string} = {name: 'Walking', icon: '🚶'};
   selectedUnit: string = 'Steps';
-  isHabit: boolean = true;
+  isHabit: boolean = false;
+  isRoutine: boolean = false;
+  isChallenge: boolean = false;
 
   constructor(private fb: FormBuilder, private store:Store, private comms:CommsService) { // Replace 'any' with your actual store type
     this.habitForm = this.fb.group({
@@ -81,9 +86,20 @@ export class CustomCreateComponent {
       dueOn: ['', Validators.required]
     });
 
-    if(this.comms.customCreateType === 'Routine') {
-      this.isHabit = false;
-    }
+    this.challengeForm = this.fb.group({
+      name: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      habits: [[], Validators.required] // Assuming habits will be selected from a list
+    });
+
+    if(this.comms.customCreateType === 'Routine') this.isRoutine = true;
+      else if(this.comms.customCreateType === 'Challenge') {
+        this.isChallenge = true;
+        this.store.select(selectDailyHabits).subscribe(habits => {
+          this.habits = habits;
+        });
+      } else this.isHabit = true;
   }
 
   onSelectFrequency(frequency: string) {
@@ -93,7 +109,8 @@ export class CustomCreateComponent {
   onSelectIcon(icon: {name:string, icon:string}) {
     this.selectedIcon = icon;
     if(this.isHabit) this.habitForm.patchValue({ icon:icon.icon })
-      else this.routineForm.patchValue({ icon:icon.icon });
+      else if(this.isRoutine) this.routineForm.patchValue({ icon:icon.icon });
+        // else this.challengeForm.patchValue({ icon:icon.icon });
   }
   onSelectUnit(unit: string) {
     this.selectedUnit = unit;
@@ -110,7 +127,7 @@ export class CustomCreateComponent {
           unit: this.habitForm.value.unit
         } as Habit
       }));
-    } else {
+    } else if(this.isRoutine) {
       this.store.dispatch(RoutineActions.addRoutine({
         routine: {
           name: this.routineForm.value.name,
@@ -119,6 +136,15 @@ export class CustomCreateComponent {
           updatedOn: new Date(this.routineForm.value.dueOn).toISOString(),
           icon: this.routineForm.value.icon,
         } as Routine
+      }));
+    } else {
+      this.store.dispatch(ChallengeActions.addChallenge({
+        challenge: {
+          name: this.challengeForm.value.name,
+          startDate: this.challengeForm.value.startDate,
+          endDate: this.challengeForm.value.endDate,
+          habits: this.challengeForm.value.habits
+        } as Challenge
       }));
     }
     this.comms.showCustomCreatePopup = false;

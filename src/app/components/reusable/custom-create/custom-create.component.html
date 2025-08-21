@@ -1,7 +1,7 @@
 <div class="popup">
     <div class="content main slide-up" CustomCreate tabindex="0">
         <img class="top" src="/assets/images/top.png" alt="">
-        <h3 class="text-center bold ps-2 pe-2 mb-4">Create {{isHabit ? 'Habit':'Routine'}}</h3>
+        <h3 class="text-center bold ps-2 pe-2 mb-4">Create {{isHabit ? 'Habit': isRoutine ? 'Routine' : 'Challenge'}}</h3>
         <form class="ps-2 pe-2" [formGroup]="habitForm" (submit)="onSubmit()" *ngIf="isHabit">
             <div class="heading bold color-dark mb-2">Name</div>
             <div class="flex-column gap-2 mb-4">
@@ -61,7 +61,8 @@
             </div>
             <button class="btn btn-primary" type="submit">Create Habit</button>
         </form>
-        <form class="ps-2 pe-2" [formGroup]="routineForm" (submit)="onSubmit()" *ngIf="!isHabit">
+
+        <form class="ps-2 pe-2" [formGroup]="routineForm" (submit)="onSubmit()" *ngIf="isRoutine">
             <div class="heading bold color-dark mb-2">Name</div>
             <div class="flex-column gap-2 mb-4">
                 <input class="card" id="name" formControlName="name" placeholder="Routine Name (e.g., Exercise, Reading)">
@@ -92,6 +93,30 @@
             </div>
             
             <button class="btn btn-primary" type="submit">Create Routine</button>
+        </form>
+
+        <form class="ps-2 pe-2" [formGroup]="challengeForm" (submit)="onSubmit()" *ngIf="isChallenge">
+            <div class="heading bold color-dark mb-2">Name</div>
+            <div class="flex-column gap-2 mb-4">
+                <input class="card" id="name" formControlName="name" placeholder="Challenge Name">
+            </div>
+
+            <div class="heading bold color-dark mb-2">Schedule</div>
+            <div class="flex gap-3 mb-4">
+                <input type="date" class="card" id="target" formControlName="startDate" placeholder="Start Date">
+                <input type="date" class="card" id="target" formControlName="endDate" placeholder="End Date">
+            </div>
+
+            <div class="heading bold color-dark mb-2">Challenge Habits</div>
+            <div class="flex gap-3 mb-4">
+                <!-- <input type="date" class="card" id="target" formControlName="dueOn" placeholder="Due Date"> -->
+                 <select class="card" name="" multiple id="" formControlName="habits">
+                    <option value="" disabled>Select Habits</option>
+                    <option *ngFor="let habit of habits" [value]="habit.id">{{habit.name}}</option>
+                 </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Create Challenge</button>
         </form>
     </div>
 </div>

@@ -61,6 +61,11 @@ export class ApiService {
     return from(addDoc(routineTrackCollection, routineTrack));
   }
 
+  postChallenge(challenge: any): Observable<any> {
+    const challengeCollection = collection(this.firestore, `users/${this.auth.currentUser?.uid}/challenges`);
+    return from(addDoc(challengeCollection, challenge));
+  }
+
   patchRoutine(routineId: string, updates: Partial<Routine>): Observable<any> {
     const routineDocRef = doc(this.firestore, `users/${this.auth.currentUser?.uid}/routines/${routineId}`);
     return from(updateDoc(routineDocRef, updates));

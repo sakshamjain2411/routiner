@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { QuickCreateComponent } from "../habit/quick-create/quick-create.component";
+import { QuickCreateComponent } from "../reusable/quick-create/quick-create.component";
 import { CommonModule } from '@angular/common';
 import { CommsService } from '../../services/comms.service';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { selectAppState } from '../../store/app.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { Routine, RoutineTrack } from '../../interfaces/app.interfaces';
 import { cloneDeep } from 'lodash';
-import { SwipeToActionComponent } from '../habit/swipe-to-action/swipe-to-action.component';
+import { SwipeToActionComponent } from '../reusable/swipe-to-action/swipe-to-action.component';
 
 @Component({
   selector: 'app-routines',

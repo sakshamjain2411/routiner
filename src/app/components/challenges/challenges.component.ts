@@ -5,9 +5,10 @@ import { ChallengeActions } from '../../store/app.actions';
 import { Challenge } from '../../interfaces/app.interfaces';
 import { selectAllChallenges, selectChallengePoints } from '../../store/app.selectors';
 import { CommonModule } from '@angular/common';
-import { ProgressBarComponent } from "../progress-bar/progress-bar.component";
+import { ProgressBarComponent } from "../reusable/progress-bar/progress-bar.component";
 import { cloneDeep } from 'lodash';
 import { firstValueFrom } from 'rxjs';
+import { CommsService } from '../../services/comms.service';
 
 @Component({
   selector: 'app-challenges',
@@ -17,7 +18,7 @@ import { firstValueFrom } from 'rxjs';
 export class ChallengesComponent implements OnInit {
 
   challenges: Challenge[] = [];
-  constructor(private store: Store) {}
+  constructor(private store: Store, private comms:CommsService) {}
   ngOnInit() {
     this.store.dispatch(ChallengeActions.loadChallenges());
     this.store.select(selectAllChallenges).subscribe((challenges: Challenge[]) => {
@@ -35,5 +36,7 @@ export class ChallengesComponent implements OnInit {
 
   openCreateChallengePopup() {
     // Logic to open the create challenge popup
+    this.comms.showCustomCreatePopup = true;
+    this.comms.customCreateType = 'Challenge';
   }
 }
